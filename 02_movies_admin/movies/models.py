@@ -1,6 +1,7 @@
 import uuid
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class TimeStampedMixin(models.Model):
@@ -19,13 +20,13 @@ class UUIDMixin(models.Model):
 
 
 class Genre(UUIDMixin, TimeStampedMixin):
-    name = models.CharField('название', max_length=255)
-    description = models.TextField('описание', blank=True)
+    name = models.CharField(_('title'), max_length=255)
+    description = models.TextField(_('description'), blank=True)
 
     class Meta:
         db_table = "content\".\"genre"
-        verbose_name = 'жанр'
-        verbose_name_plural = 'жанры'
+        verbose_name = _('genre')
+        verbose_name_plural = _('genres')
 
     def __str__(self):
         return self.name
@@ -37,19 +38,24 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         MOVIE = 'movie'
         TV_SHOW = 'tv_show'
 
-    title = models.CharField('название', max_length=255)
-    description = models.TextField('описание', blank=True)
-    creation_date = models.DateTimeField('дата создания')
-    rating = models.SmallIntegerField('рейтинг', blank=True,
+    title = models.CharField(_('title'), max_length=255)
+    description = models.TextField(_('description'), blank=True)
+    creation_date = models.DateField(_('creation date'))
+    rating = models.SmallIntegerField(_('rating'), blank=True,
                                       validators=[MinValueValidator(0),
                                                   MaxValueValidator(100)])
-    type = models.CharField('тип', max_length=20, choices=FilmType.choices, default=FilmType.MOVIE)
+    type = models.CharField(_('type'), max_length=20, 
+                            choices=FilmType.choices, default=FilmType.MOVIE)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
+    certificate = models.CharField(_('certificate'), max_length=512, blank=True)
+    # Параметр upload_to указывает, в какой подпапке будут храниться загружемые файлы.
+    # Базовая папка указана в файле настроек как MEDIA_ROOT
+    file_path = models.FileField(_('file'), blank=True, null=True, upload_to='movies/')
 
     class Meta:
         db_table = "content\".\"film_work"
-        verbose_name = 'кинопроизведение'
-        verbose_name_plural = 'кинопроизведения'
+        verbose_name = _('filmwork')
+        verbose_name_plural = _('filmworks')
 
     def __str__(self):
         return self.title
@@ -65,12 +71,12 @@ class GenreFilmwork(UUIDMixin):
 
 
 class Person(UUIDMixin, TimeStampedMixin):
-    full_name = models.CharField('полное имя', max_length=255)
+    full_name = models.CharField(_('full name'), max_length=255)
 
     class Meta:
         db_table = "content\".\"person"
-        verbose_name = 'участник фильма'
-        verbose_name_plural = 'участники фильма'
+        verbose_name = _('person')
+        verbose_name_plural = _('persons')
 
     def __str__(self):
         return self.full_name
@@ -79,7 +85,7 @@ class Person(UUIDMixin, TimeStampedMixin):
 class PersonFilmwork(models.Model):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
-    role = models.TextField('роль', null=True)
+    role = models.TextField(_('role'), null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

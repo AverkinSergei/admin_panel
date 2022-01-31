@@ -1,1 +1,5 @@
 .idea/
+.env
+*.sh
+Pipfile
+Pipfile.lock

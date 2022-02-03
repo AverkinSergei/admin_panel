@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-from dal import autocomplete
-
 from .forms import PersonAutocompleteForm
 from .models import Genre, Filmwork, Person, GenreFilmwork, PersonFilmwork
 

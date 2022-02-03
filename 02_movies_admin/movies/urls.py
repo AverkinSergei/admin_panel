@@ -4,5 +4,6 @@ from .views import PersonAutocomplete
 
 
 urlpatterns = [
-    path('person-autocomplete/', PersonAutocomplete.as_view(), name='person-autocomplete'),
+    path('person-autocomplete/', PersonAutocomplete.as_view(),
+         name='person-autocomplete'),
 ]

@@ -51,9 +51,9 @@ include(
 ENABLE_DJANGO_DEBUG_TOOLS = False
 
 if DEBUG and ENABLE_DJANGO_DEBUG_TOOLS:
-    INSTALLED_APPS += [
+    INSTALLED_APPS += [  # noqa
         'debug_toolbar',
     ]
-    MIDDLEWARE += [
+    MIDDLEWARE += [  # noqa
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     ]

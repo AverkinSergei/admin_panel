@@ -41,16 +41,17 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     title = models.CharField(_('title'), max_length=255)
     description = models.TextField(_('description'), blank=True)
     creation_date = models.DateField(_('creation date'))
-    rating = models.SmallIntegerField(_('rating'), blank=True,
-                                      validators=[MinValueValidator(0),
-                                                  MaxValueValidator(100)])
-    type = models.CharField(_('type'), max_length=20, 
-                            choices=FilmType.choices, default=FilmType.MOVIE)
+    rating = models.SmallIntegerField(
+        _('rating'), blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)])
+    type = models.CharField(
+        _('type'), max_length=20,
+        choices=FilmType.choices, default=FilmType.MOVIE)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
-    certificate = models.CharField(_('certificate'), max_length=512, blank=True)
-    # Параметр upload_to указывает, в какой подпапке будут храниться загружемые файлы.
-    # Базовая папка указана в файле настроек как MEDIA_ROOT
-    file_path = models.FileField(_('file'), blank=True, null=True, upload_to='movies/')
+    certificate = models.CharField(
+        _('certificate'), max_length=512, null=True, blank=True)
+    file_path = models.FileField(
+        _('file'), blank=True, null=True, upload_to='movies/')
 
     class Meta:
         db_table = "content\".\"film_work"
@@ -68,10 +69,12 @@ class GenreFilmwork(UUIDMixin):
 
     class Meta:
         db_table = "content\".\"genre_film_work"
+        unique_together = ('film_work', 'genre')
 
 
 class Person(UUIDMixin, TimeStampedMixin):
     full_name = models.CharField(_('full name'), max_length=255)
+    birth_date = models.DateField(_('birth_date'), null=True, blank=True)
 
     class Meta:
         db_table = "content\".\"person"

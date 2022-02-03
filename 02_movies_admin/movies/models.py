@@ -5,8 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class TimeStampedMixin(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(_('created'), auto_now_add=True)
+    modified = models.DateTimeField(_('modified'), auto_now=True)
 
     class Meta:
         abstract = True
@@ -47,7 +47,8 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     type = models.CharField(
         _('type'), max_length=20,
         choices=FilmType.choices, default=FilmType.MOVIE)
-    genres = models.ManyToManyField(Genre, through='GenreFilmwork')
+    genres = models.ManyToManyField(
+        Genre, through='GenreFilmwork', verbose_name=_('genres'))
     certificate = models.CharField(
         _('certificate'), max_length=512, null=True, blank=True)
     file_path = models.FileField(
@@ -64,7 +65,8 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
 
 class GenreFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
-    genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
+    genre = models.ForeignKey(
+        'Genre', on_delete=models.CASCADE, verbose_name=_('genre'))
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -86,10 +88,12 @@ class Person(UUIDMixin, TimeStampedMixin):
 
 
 class PersonFilmwork(models.Model):
-    film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
-    person = models.ForeignKey('Person', on_delete=models.CASCADE)
+    film_work = models.ForeignKey(
+        'Filmwork', on_delete=models.CASCADE, verbose_name=_('filmwork'))
+    person = models.ForeignKey(
+        'Person', on_delete=models.CASCADE, verbose_name=_('person'))
     role = models.TextField(_('role'), null=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(_('created'), auto_now_add=True)
 
     class Meta:
         db_table = "content\".\"person_film_work"

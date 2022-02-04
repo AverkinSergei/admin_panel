@@ -25,6 +25,10 @@ class FilmworkAdmin(admin.ModelAdmin):
     list_filter = ('type', 'creation_date', )
     search_fields = ('title', 'description', 'id', )
 
+    def get_queryset(self, request, **kwargs):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related('genres')
+
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):

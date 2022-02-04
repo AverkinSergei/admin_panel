@@ -48,7 +48,7 @@ include(
     'components/default_fields.py',
 )
 
-ENABLE_DJANGO_DEBUG_TOOLS = False
+ENABLE_DJANGO_DEBUG_TOOLS = True
 
 if DEBUG and ENABLE_DJANGO_DEBUG_TOOLS:
     INSTALLED_APPS += [  # noqa

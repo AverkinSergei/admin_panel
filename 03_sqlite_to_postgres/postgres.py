@@ -1,9 +1,8 @@
 class PostgresSaver(object):
 
-    BATCH_SIZE = 3
-
-    def __init__(self, pg_conn):
+    def __init__(self, pg_conn, batch_size):
         self.connection = pg_conn
+        self.batch_size = batch_size
 
     @staticmethod
     def mogrify(cursor, obj):
@@ -21,8 +20,8 @@ class PostgresSaver(object):
                 query = f'INSERT INTO content.{table_name} {columns} VALUES '
                 query = query.replace('\'', '')
                 start = 0
-                end = self.BATCH_SIZE
-                steps = len(data[table_name]) // self.BATCH_SIZE + 1
+                end = self.batch_size
+                steps = len(data[table_name]) // self.batch_size + 1
                 for step in range(steps):
                     values = ', '.join([
                         self.mogrify(cursor, obj)
@@ -32,4 +31,4 @@ class PostgresSaver(object):
                         cursor.execute(
                             f'{query}{values} ON CONFLICT (id) DO NOTHING;')
                     start = end
-                    end += self.BATCH_SIZE
+                    end += self.batch_size

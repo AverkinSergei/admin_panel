@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 06:54+0000\n"
+"POT-Creation-Date: 2022-02-05 06:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: movies/models.py:8 movies/models.py:96
+#: movies/models.py:8 movies/models.py:102
 msgid "created"
 msgstr "Дата создания записи"
 
@@ -64,7 +64,7 @@ msgstr "Сертификат"
 msgid "file"
 msgstr "Файл"
 
-#: movies/models.py:59 movies/models.py:92
+#: movies/models.py:59 movies/models.py:98
 msgid "filmwork"
 msgstr "Кинопроизведение"
 
@@ -80,7 +80,7 @@ msgstr "Полное имя"
 msgid "birth_date"
 msgstr "Дата рождения"
 
-#: movies/models.py:83 movies/models.py:94
+#: movies/models.py:83 movies/models.py:100
 msgid "person"
 msgstr "Участник кинопроизведения"
 
@@ -88,6 +88,18 @@ msgstr "Участник кинопроизведения"
 msgid "persons"
 msgstr "Участники кинопроизведений"
 
+#: movies/models.py:93
+msgid "actor"
+msgstr "Актёр"
+
+#: movies/models.py:94
+msgid "writer"
+msgstr "Сценарист"
+
 #: movies/models.py:95
+msgid "director"
+msgstr "Режиссёр"
+
+#: movies/models.py:101
 msgid "role"
 msgstr "Роль"

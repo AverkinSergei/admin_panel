@@ -21,8 +21,8 @@ parser.add_argument(
 
 args = vars(parser.parse_args())
 
-DB_USER = os.environ.get('DB_USER', 'app')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', '123qwe')
+DB_USER = os.environ.get('DB_USER')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
 
 postgresql_arg = args.get(
     'postresql', f'{DB_USER}:{DB_PASSWORD}@127.0.0.1:5432')

@@ -1,7 +1,4 @@
 .idea/
 .env
 .venv
-*.sh
-Pipfile
-Pipfile.lock
 __pycache__/
